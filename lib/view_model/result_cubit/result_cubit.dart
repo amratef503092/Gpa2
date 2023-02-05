@@ -32,28 +32,20 @@ class ResultCubit extends Cubit<ResultState> {
   {
     if(result >= 4.0) {
       return "A+";
-    } else if(result >= 3.75) {
+    } else if(result >= 3.7) {
       return "A";
-    } else if(result >= 3.5) {
-      return "A-";
-    } else if(result >= 3.25) {
+    } else if(result >= 3.3) {
       return "B+";
     } else if(result >= 3.0) {
       return "B";
-    } else if(result >= 2.75) {
-      return "B-";
-    } else if(result >= 2.5) {
+    } else if(result >= 2.7) {
       return "C+";
-    } else if(result >= 2.25) {
+    } else if(result >= 2.4) {
       return "C";
-    } else if(result >= 2.0) {
-      return "C-";
-    } else if(result >= 1.75) {
+    } else if(result >= 2.2) {
       return "D+";
-    } else if(result >= 1.5) {
+    } else if(result >= 2.0) {
       return "D";
-    } else if(result >= 1.25) {
-      return "D-";
     } else {
       return "F";
     }

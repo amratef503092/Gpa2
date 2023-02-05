@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110251909457",
+    "project_id": "gpa2-1f7c8",
+    "storage_bucket": "gpa2-1f7c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110251909457:android:dbe383b938564161ae3370",
+        "android_client_info": {
+          "package_name": "com.gpaApplication.gpa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110251909457-ipme3mcrn4vs8kpu669v7d37refd3muo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ddl30HqXUAXMkV90VDfac1yIqIAYbig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110251909457-ipme3mcrn4vs8kpu669v7d37refd3muo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,8 +4,17 @@ import 'package:gpa/view/screens/splash_screen/splash_screen.dart';
 import 'package:gpa/view_model/inpuit_cubit/input_cubit.dart';
 import 'package:gpa/view_model/number_of_course_cubit/number_of_course_cubit.dart';
 import 'package:gpa/view_model/result_cubit/result_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main()
+async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.
+  initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

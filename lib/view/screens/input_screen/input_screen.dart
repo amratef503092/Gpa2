@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpa/view_model/inpuit_cubit/input_cubit.dart';
 import 'package:gpa/view_model/number_of_course_cubit/number_of_course_cubit.dart';
 
+import '../../../model/grade_model/grade_model.dart';
 import '../../../model/subject_model.dart';
 import '../result_screen/result_screen.dart';
 
@@ -18,12 +19,9 @@ class _InputScreenState extends State<InputScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    for (int i = 0; i < NumberOfCourseCubit.get(context).numberOfCourse; i++)
-    {
-      InputCubit.get(context).
-      subjects.add(
-          SubjectModel(
-            hours: 0,
+    for (int i = 0; i < NumberOfCourseCubit.get(context).numberOfCourse; i++) {
+      InputCubit.get(context).subjects.add(SubjectModel(
+            hours: 3,
             grade: "A+",
             gradePoint: 4.0,
           ));
@@ -31,34 +29,85 @@ class _InputScreenState extends State<InputScreen> {
 
     super.initState();
   }
+
+  List<GradeModel> grade = [
+    GradeModel(
+      grade: "A+",
+      gradePoint: 4.0,
+    ),
+    GradeModel(
+      grade: "A",
+      gradePoint: 3.7,
+    ),
+    GradeModel(
+      grade: "B+",
+      gradePoint: 3.3,
+    ),
+    GradeModel(
+      grade: "B",
+      gradePoint: 3.0,
+    ),
+    GradeModel(
+      grade: "C+",
+      gradePoint: 2.7,
+    ),
+    GradeModel(
+      grade: "C",
+      gradePoint: 2.4,
+    ),
+    GradeModel(
+      grade: "D+",
+      gradePoint: 2.2,
+    ),
+    GradeModel(
+      grade: "D",
+      gradePoint: 2.0,
+    ),
+    GradeModel(
+      grade: "F",
+      gradePoint: 0.0,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: ()
-          {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const ResultScreen();
-            },));
-          },
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(double.infinity, 50),
-          ),
-          child: const Text(
-            "Submit",
-            style: TextStyle(
-              fontSize: 30,
+        bottomSheet: SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return const ResultScreen();
+                },
+              ));
+            },
+            style: ElevatedButton.styleFrom(
+              fixedSize: const Size(double.infinity, 50),
+            ),
+            child: const Text(
+              "Submit",
+              style: TextStyle(
+                fontSize: 30,
+              ),
             ),
           ),
         ),
-      ),
         appBar: AppBar(
           title: const Text("GPA Calculator"),
         ),
+        endDrawer: Drawer(
+
+          child: ListView.builder(
+            itemCount: grade.length,
+            itemBuilder: (context, index) {
+            return ListTile(
+              title: Text("${grade[index].grade} : ${grade[index].gradePoint}"),
+            );
+          },),
+        ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 15, right:  15 , bottom: 60),
+          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 60),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: SizedBox(
@@ -92,40 +141,44 @@ class _InputScreenState extends State<InputScreen> {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index)
-                    {
+                    separatorBuilder: (context, index) {
                       return const SizedBox(
                         height: 20,
                       );
                     },
-                    itemCount:
-                    NumberOfCourseCubit.get(context).
-                    numberOfCourse,
+                    itemCount: NumberOfCourseCubit.get(context).numberOfCourse,
                     itemBuilder: (context, index) {
                       return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
                               width: 50,
-                              child:
-                              customText(text: "Course ${index + 1}",
-                                  fontSize: 12)),
+                              child: customText(
+                                  text: "Course ${index + 1}", fontSize: 12)),
                           const SizedBox(
                             width: 50,
                           ),
                           SizedBox(
                             width: 70,
                             child: TextFormField(
-                              initialValue: InputCubit.get(context).subjects[index].hours.toString(),
-                              onChanged: (value)
-                              {
-                                if (value.isNotEmpty)
-                                {
-                                  InputCubit.get(context).subjects[index].hours = int.parse(value);
-                                }else{
-                                  InputCubit.get(context).subjects[index].hours = 0;
+                              // initialValue: InputCubit.get(context).subjects[index].hours.toString(),
+                              controller: TextEditingController(
+                                  text: InputCubit.get(context)
+                                      .subjects[index]
+                                      .hours
+                                      .toString()),
+
+                              onChanged: (value) {
+                                if (value.isNotEmpty) {
+                                  InputCubit.get(context)
+                                      .subjects[index]
+                                      .hours = int.parse(value);
+                                } else {
+                                  InputCubit.get(context)
+                                      .subjects[index]
+                                      .hours = 0;
                                 }
                               },
-                              keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
@@ -138,20 +191,31 @@ class _InputScreenState extends State<InputScreen> {
                             builder: (context, state) {
                               return SizedBox(
                                 width: 70,
+
                                 child: DropdownButton(
                                     isExpanded: true,
                                     hint: const Text("Select Grade"),
-                                    value: InputCubit.get(context).subjects[index].grade,
-                                    items: InputCubit.get(context).grade.map((e)
-                                    {
+                                    value: InputCubit.get(context)
+                                        .subjects[index].grade,
+                                    items:
+                                    grade.map((e) {
                                       return DropdownMenuItem(
-                                        value: e,
-                                        child: Text(e),
+                                        value: e.grade,
+                                        child: Text(e.grade),
                                       );
                                     }).toList(),
                                     onChanged: (value)
                                     {
-                                      InputCubit.get(context).changeGrade(value as String , index);
+                                      setState(() {
+                                        InputCubit.get(context)
+                                            .subjects[index]
+                                            .grade = value.toString();
+                                        InputCubit.get(context)
+                                            .subjects[index]
+                                            .gradePoint = grade.firstWhere((element) => element.grade == value.toString()).gradePoint;
+
+                                      });
+
                                     }),
                               );
                             },
@@ -163,16 +227,22 @@ class _InputScreenState extends State<InputScreen> {
                             width: 70,
                             child: TextFormField(
                               onChanged: (value) {
-                                if(value.isEmpty)
-                                {
-                                  InputCubit.get(context).subjects[index].gradePoint = 0;
-
-                                }else{
-                                  InputCubit.get(context).subjects[index].gradePoint = double.parse(value);
-
+                                if (value.isEmpty) {
+                                  InputCubit.get(context)
+                                      .subjects[index]
+                                      .gradePoint = 0;
+                                } else {
+                                  InputCubit.get(context)
+                                      .subjects[index]
+                                      .gradePoint = double.parse(value);
                                 }
                               },
-                              initialValue: InputCubit.get(context).subjects[index].gradePoint.toString(),
+                              enabled: false,
+                              controller: TextEditingController(
+                                  text: InputCubit.get(context)
+                                      .subjects[index]
+                                      .gradePoint
+                                      .toString()),
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
