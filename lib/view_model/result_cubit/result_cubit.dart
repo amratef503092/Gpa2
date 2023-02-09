@@ -19,6 +19,7 @@ class ResultCubit extends Cubit<ResultState> {
    totalHours = 0.0;
    totalGrade = 0.0;
     for (var element in subjects) {
+      print(element.hours);
       totalHours +=element.hours;
       element.totalGradePoint = element.hours * element.gradePoint;
     }
@@ -49,5 +50,53 @@ class ResultCubit extends Cubit<ResultState> {
     } else {
       return "F";
     }
+  }
+  String gpa2()
+  {
+    if(result == 4){
+      return "A+";
+    }else if(result >=3.7){
+      return "A";
+    }else if(result >= 3.4){
+      return "A-";
+    }else if(result >= 3.2){
+      return "B+";
+    }else if(result >= 3.0){
+      return "B";
+    }else if(result >= 2.8){
+      return "B-";
+    }else if(result >= 2.6){
+      return "C+";
+    }else if(result >= 2.4){
+      return "C";
+    }else if(result >= 2.2){
+      return "C-";
+    }else if(result >= 2){
+      return "D+";
+    }else if(result >= 1.5){
+      return "D";
+    }else if(result >= 1){
+      return "D-";
+    }else{
+      return "F";
+    }
+  }
+  void calculateGPA2({
+    required List<SubjectModel> subjects,
+  })
+  {
+    result = 0.0;
+    totalHours = 0.0;
+    totalGrade = 0.0;
+    for (var element in subjects) {
+      print(element.hours);
+      totalHours +=element.hours;
+      element.totalGradePoint = element.hours * element.gradePoint;
+    }
+    for (var element in subjects) {
+      totalGrade += element.totalGradePoint;
+    }
+    result = totalGrade / totalHours;
+    emit(CalculateResultState());
   }
 }

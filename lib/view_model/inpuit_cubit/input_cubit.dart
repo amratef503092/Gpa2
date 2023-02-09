@@ -25,6 +25,7 @@ class InputCubit extends Cubit<InputState> {
     "F",
   ];
   List<SubjectModel> subjects= [];
+
   String selectedGrade = "A+";
   void changeGrade( String value , index){
     subjects[index].grade = value;

@@ -7,25 +7,27 @@ import 'package:gpa/view_model/number_of_course_cubit/number_of_course_cubit.dar
 import '../../../model/grade_model/grade_model.dart';
 import '../../../model/subject_model.dart';
 import '../result_screen/result_screen.dart';
+import '../result_screen/result_screen_2.dart';
 
-class InputScreen extends StatefulWidget {
-  const InputScreen({Key? key}) : super(key: key);
+class InputScreenTwo extends StatefulWidget {
+  const InputScreenTwo({Key? key}) : super(key: key);
 
   @override
-  State<InputScreen> createState() => _InputScreenState();
+  State<InputScreenTwo> createState() => _InputScreenTwoState();
 }
 
-class _InputScreenState extends State<InputScreen> {
+class _InputScreenTwoState extends State<InputScreenTwo> {
   @override
   void initState() {
     // TODO: implement initState
     InputCubit.get(context).subjects.clear();
+
     for (int i = 0; i < NumberOfCourseCubit.get(context).numberOfCourse; i++) {
       InputCubit.get(context).subjects.add(SubjectModel(
-            hours: 3,
-            grade: "A+",
-            gradePoint: 4.0,
-          ));
+        hours: 3,
+        grade: "A+",
+        gradePoint: 4.0,
+      ));
     }
 
     super.initState();
@@ -41,28 +43,44 @@ class _InputScreenState extends State<InputScreen> {
       gradePoint: 3.7,
     ),
     GradeModel(
+      grade: "A-",
+      gradePoint: 3.4,
+    ),
+    GradeModel(
       grade: "B+",
-      gradePoint: 3.3,
+      gradePoint: 3.2,
     ),
     GradeModel(
       grade: "B",
       gradePoint: 3.0,
     ),
     GradeModel(
+      grade: "B-",
+      gradePoint: 2.8,
+    ),
+    GradeModel(
       grade: "C+",
-      gradePoint: 2.7,
+      gradePoint: 2.6,
     ),
     GradeModel(
       grade: "C",
       gradePoint: 2.4,
     ),
     GradeModel(
-      grade: "D+",
+      grade: "C-",
       gradePoint: 2.2,
     ),
     GradeModel(
+      grade: "D+",
+      gradePoint: 2,
+    ),
+    GradeModel(
       grade: "D",
-      gradePoint: 2.0,
+      gradePoint: 1.5,
+    ),
+    GradeModel(
+      grade: "D-",
+      gradePoint: 1.0,
     ),
     GradeModel(
       grade: "F",
@@ -79,7 +97,7 @@ class _InputScreenState extends State<InputScreen> {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return const ResultScreen();
+                  return const ResultScreenTwo();
                 },
               ));
             },
@@ -102,10 +120,10 @@ class _InputScreenState extends State<InputScreen> {
           child: ListView.builder(
             itemCount: grade.length,
             itemBuilder: (context, index) {
-            return ListTile(
-              title: Text("${grade[index].grade} : ${grade[index].gradePoint}"),
-            );
-          },),
+              return ListTile(
+                title: Text("${grade[index].grade} : ${grade[index].gradePoint}"),
+              );
+            },),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, bottom: 60),
